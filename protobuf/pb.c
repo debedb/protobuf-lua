@@ -457,7 +457,7 @@ static const struct luaL_Reg _pb [] = {
 /*
 ** Adapted from Lua 5.2.0
 */
-static void luaL_setfuncs (lua_State *L, const luaL_Reg *l, int nup) {
+static void luaL_setfuncs2 (lua_State *L, const luaL_Reg *l, int nup) {
   luaL_checkstack(L, nup+1, "too many upvalues");
   for (; l->name != NULL; l++) {  /* fill the table with given functions */
     int i;
@@ -485,10 +485,10 @@ int luaopen_protobuf_pb (lua_State *L)
     luaL_newmetatable(L, IOSTRING_META);
     lua_pushvalue(L, -1);
     lua_setfield(L, -2, "__index");
-    luaL_setfuncs(L, _c_iostring_m, 0);
+    luaL_setfuncs2(L, _c_iostring_m, 0);
 
     lua_newtable(L);
-    luaL_setfuncs(L, _pb, 0);
+    luaL_setfuncs2(L, _pb, 0);
     lua_pushvalue(L, -1);
     lua_setglobal(L, "pb");
 
